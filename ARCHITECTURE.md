@@ -13,6 +13,8 @@ src/
   features/            # business features grouped by domain
     tasks/             # task center
     damage/            # damage calculator
+  domain/              # business domain contracts
+  ipc/                 # tauri ipc payload/event contracts
   core/                # infrastructure adapters (tauri client, app-wide services)
   shared/              # cross-feature pure utilities
   types.ts             # shared contracts from backend
@@ -24,7 +26,9 @@ Dependency direction:
 - `shared` cannot depend on Tauri runtime
 
 ## Contracts
-- Keep all command payload/result types in [`src/types.ts`](src/types.ts).
+- Domain models live in `src/domain/*`.
+- IPC request/response/event models live in `src/ipc/*`.
+- [`src/types.ts`](src/types.ts) is a backward-compatible barrel, not the source of truth.
 - Backend command names are treated as stable API surface.
 - Any command schema change must update `types.ts` and both feature callers.
 
@@ -53,4 +57,6 @@ Dependency direction:
 4. Reuse types from `types.ts`; do not create duplicate request models.
 5. Validate with:
    - `npx tsc --noEmit`
+   - `npm run lint`
+   - `npm run test:run`
    - `cd src-tauri && cargo check`

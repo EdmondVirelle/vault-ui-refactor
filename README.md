@@ -65,6 +65,10 @@ npm run tauri dev
 # 僅前端型別檢查
 npx tsc --noEmit
 
+# 前端 Lint / 測試
+npm run lint
+npm run test:run
+
 # Rust 檢查
 cd src-tauri
 cargo check

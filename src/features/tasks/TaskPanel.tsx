@@ -1,17 +1,16 @@
 ﻿import { listen } from "@tauri-apps/api/event";
 import React, { useEffect, useMemo, useState } from "react";
 import { assertTauri, invokeCmd } from "../../core/tauri";
-import { isValidPathFormat } from "../../shared/utils/path";
 import {
-  DiagnosticsReport,
   InputField,
   SelectOption,
   Task,
-  TaskLogEvent,
   TaskPathSettings,
   TaskStatus,
-  TaskStatusEvent,
-} from "../../types";
+} from "../../domain/task";
+import { DiagnosticsReport } from "../../ipc/diagnostics";
+import { TaskLogEvent, TaskStatusEvent } from "../../ipc/events";
+import { isValidPathFormat } from "../../shared/utils/path";
 
 type Props = {
   tasks: Task[];
@@ -714,3 +713,4 @@ const TaskPanel: React.FC<Props> = ({ tasks, onReload }) => {
 };
 
 export default TaskPanel;
+

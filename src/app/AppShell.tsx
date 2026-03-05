@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { invokeCmd } from "../core/tauri";
 import DamagePanel from "../features/damage/DamagePanel";
 import TaskPanel from "../features/tasks/TaskPanel";
-import { TaskManifest } from "../types";
+import { TaskManifest } from "../domain/task";
 
 type MainTab = "tasks" | "damage";
 

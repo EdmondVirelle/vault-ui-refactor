@@ -1,7 +1,8 @@
 ﻿import { listen } from "@tauri-apps/api/event";
 import { useEffect, useMemo, useState } from "react";
 import { assertTauri, invokeCmd } from "../../core/tauri";
-import { ScriptInfo, ScriptOption, TaskLogEvent, TaskStatusEvent } from "../../types";
+import { ScriptInfo, ScriptOption } from "../../domain/script";
+import { TaskLogEvent, TaskStatusEvent } from "../../ipc/events";
 
 const DAMAGE_SCRIPT_RE = /(傷害計算表|damage)/i;
 
@@ -288,3 +289,4 @@ const DamagePanel = () => {
 };
 
 export default DamagePanel;
+
