@@ -95,3 +95,36 @@ cargo check
 
 - 目前為實用導向重構版本，優先解決工作流與穩定性。
 - 若要擴充分頁，可沿用現有 Tauri command + React tab 架構。
+## CI/CD Release
+
+本專案已內建 GitHub Actions：
+
+1. CI (`.github/workflows/ci.yml`)
+- 觸發：`push main`、`pull_request`
+- 動作：
+  - `npm ci`
+  - `npm run build`
+  - `cargo check`
+
+2. CD Release (`.github/workflows/release.yml`)
+- 觸發：
+  - push tag `v*`（例如 `v0.1.0`）
+  - 或手動 `workflow_dispatch`
+- 動作：
+  - Windows / Linux / macOS 三平台打包 Tauri
+  - 自動建立 GitHub Release
+  - 上傳 `src-tauri/target/release/bundle/**` 產物
+
+### 發版方式
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+推送 tag 後，GitHub Actions 會自動打包並建立 Release。
+
+### 注意事項
+
+- 若 Linux 打包失敗，請確認 workflow 內 apt 套件安裝步驟未被移除。
+- 若你之後要做簽章（code signing / notarization），可再補 secrets（例如 Apple / Windows signing）。
