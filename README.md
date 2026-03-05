@@ -31,12 +31,19 @@ Consilience Vault 的 Tauri + Rust + React 桌面工具重構版。
 
 ```text
 vault-ui-refactor/
-  src/                  # React 前端
+  src/
+    app/                # App 組裝層（分頁與頁面殼）
+    features/           # 功能模組（任務中心、傷害計算機）
+    core/               # Tauri 邊界與基礎服務
+    shared/             # 共用純函式/工具
+    types.ts            # 前後端契約型別
   src-tauri/            # Rust / Tauri 後端
   scripts/              # Python 工具腳本
   tasks.json            # 任務定義（配置驅動）
   gui_config.json       # 專案路徑與執行設定
 ```
+
+詳細前端分層規範請看 [`ARCHITECTURE.md`](./ARCHITECTURE.md)。
 
 ## 開發環境
 

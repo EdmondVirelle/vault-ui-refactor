@@ -1,6 +1,6 @@
 ﻿import { listen } from "@tauri-apps/api/event";
 import React, { useEffect, useMemo, useState } from "react";
-import { TAURI_REQUIRED_MSG, assertTauri, invokeCmd } from "../../core/tauri";
+import { assertTauri, invokeCmd } from "../../core/tauri";
 import { isValidPathFormat } from "../../shared/utils/path";
 import {
   DiagnosticsReport,

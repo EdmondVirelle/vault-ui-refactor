@@ -1,6 +1,6 @@
 ﻿import { listen } from "@tauri-apps/api/event";
 import { useEffect, useMemo, useState } from "react";
-import { TAURI_REQUIRED_MSG, assertTauri, invokeCmd } from "../../core/tauri";
+import { assertTauri, invokeCmd } from "../../core/tauri";
 import { ScriptInfo, ScriptOption, TaskLogEvent, TaskStatusEvent } from "../../types";
 
 const DAMAGE_SCRIPT_RE = /(傷害計算表|damage)/i;
