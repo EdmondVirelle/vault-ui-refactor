@@ -1,0 +1,8 @@
+{
+  "project_root": "C:/Consilience",
+  "scripts_dir": "C:/Consilience/consilience-vault-rust-rpgmz/consilience-vault/scripts",
+  "docs_dir": "C:/Consilience/docs",
+  "python_path": "python",
+  "history_file": "C:/Consilience/consilience-vault-rust-rpgmz/gui_history.json",
+  "diagnostics_output": "C:/Consilience/consilience-vault-rust-rpgmz/diagnostics.json"
+}

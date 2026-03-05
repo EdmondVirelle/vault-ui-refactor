@@ -1,0 +1,205 @@
+{
+  "tasks": [
+    {
+      "id": "export_database_excel",
+      "label": "匯出資料庫報表",
+      "description": "執行資料庫匯出腳本，產出 RPGMZ 資料庫 Excel。",
+      "usage": "把遊戲資料庫（Actors、Skills、Items 等）整理為 Excel。",
+      "usage_steps": [
+        "確認遊戲專案路徑正確。",
+        "設定匯出地點（建議 docs）。",
+        "按下「執行任務」。"
+      ],
+      "import_format": "來源為 RPG Maker MZ JSON（data/*.json），不使用 MD。",
+      "why_md_import": "此任務直接讀取 RPGMZ JSON，不經過 Markdown 解析。",
+      "command": "python",
+      "script": "資料庫-匯出Excel.py",
+      "inputs": [],
+      "arg_template": "{command} {script}",
+      "fuzzy_keywords": [
+        "資料庫",
+        "匯出",
+        "Excel",
+        ".py"
+      ],
+      "path_policy": {
+        "show_import": false,
+        "show_export": true,
+        "default_export_path": "C:/Consilience/docs"
+      }
+    },
+    {
+      "id": "sync_character_excel",
+      "label": "角色同步 Excel",
+      "description": "同步角色設定到 Excel。",
+      "usage": "把角色資料同步到角色 Excel，便於後續批次維護。",
+      "usage_steps": [
+        "確認角色來源檔案已更新。",
+        "設定匯出地點。",
+        "按下「執行任務」。"
+      ],
+      "import_format": "來源為專案角色資料（JSON/Excel），不使用 MD。",
+      "why_md_import": "此任務不走 MD 匯入流程。",
+      "command": "python",
+      "script": "角色-同步Excel.py",
+      "inputs": [],
+      "arg_template": "{command} {script}",
+      "fuzzy_keywords": [
+        "角色",
+        "同步",
+        "Excel",
+        ".py"
+      ],
+      "path_policy": {
+        "show_import": false,
+        "show_export": true,
+        "default_export_path": "C:/Consilience/docs"
+      }
+    },
+    {
+      "id": "import_chapter_script",
+      "label": "匯入章節（劇本）",
+      "description": "把章節劇本匯入 Excel，可選章節與是否含擴充。",
+      "usage": "匯入序章到第八章劇本，輸出章節分頁與關鍵詞分頁。",
+      "usage_steps": [
+        "在「匯入地點」選擇包含章節 MD 的資料夾（例如 consilience-writer）。",
+        "選擇章節（或全部）與是否包含擴充。",
+        "按下「執行任務」。"
+      ],
+      "import_format": "Markdown（.md）管線表格格式，至少包含劇本序列欄位（例如 S1-001）與對話內容欄位。",
+      "why_md_import": "匯入器會解析 Markdown 表格（| 欄位 | 欄位 |）並映射到 Excel 欄位；只要欄位結構符合規範即可匯入。",
+      "sample_template_file": "templates/md/章節匯入範例.md",
+      "sample_template_label": "開啟範例 MD 模板",
+      "command": "python",
+      "script": "劇本-匯出Excel.py",
+      "inputs": [
+        {
+          "type": "select",
+          "name": "chapter_id",
+          "label": "章節",
+          "options": [
+            {
+              "label": "全部章節（預設）",
+              "value": ""
+            },
+            {
+              "label": "序章",
+              "value": "0"
+            },
+            {
+              "label": "第一章",
+              "value": "1"
+            },
+            {
+              "label": "第二章",
+              "value": "2"
+            },
+            {
+              "label": "第三章",
+              "value": "3"
+            },
+            {
+              "label": "第四章",
+              "value": "4"
+            },
+            {
+              "label": "第五章",
+              "value": "5"
+            },
+            {
+              "label": "第六章",
+              "value": "6"
+            },
+            {
+              "label": "第七章",
+              "value": "7"
+            },
+            {
+              "label": "第八章",
+              "value": "8"
+            }
+          ],
+          "arg_template": "{value}",
+          "default_value": ""
+        },
+        {
+          "type": "boolean",
+          "name": "with_expansion",
+          "label": "包含擴充內容",
+          "arg_template": "--with-expansion",
+          "default_value": true
+        }
+      ],
+      "arg_template": "{command} {script} {chapter_id} {with_expansion}",
+      "fuzzy_keywords": [
+        "劇本",
+        "匯出",
+        "Excel",
+        ".py"
+      ],
+      "path_policy": {
+        "show_import": true,
+        "show_export": false,
+        "default_import_path": "C:/Consilience/consilience-writer"
+      }
+    },
+    {
+      "id": "import_snapshot",
+      "label": "匯入快照（整個遊戲專案）",
+      "description": "從快照資料夾匯入到遊戲專案；第一次備份為原檔，後續為快照備份。",
+      "usage": "把快照內容套用到遊戲專案，並在本地自動備份。",
+      "usage_steps": [
+        "選擇：快照來源資料夾、遊戲專案資料夾、本地備份資料夾。",
+        "第一次執行建立「原檔」完整備份；第二次後建立「快照_時間」備份。",
+        "按下「執行任務」。"
+      ],
+      "import_format": "來源為資料夾快照（包含 Consilience/data、audio、img、js 等）。",
+      "why_md_import": "此任務為檔案層級複製，不使用 MD。",
+      "command": "python",
+      "script": "系統-匯入快照.py",
+      "inputs": [
+        {
+          "type": "text",
+          "name": "snapshot_root",
+          "label": "快照來源資料夾",
+          "arg_template": "--snapshot-root {value}",
+          "browse_folder": true
+        },
+        {
+          "type": "text",
+          "name": "project_root",
+          "label": "遊戲專案資料夾",
+          "arg_template": "--project-root {value}",
+          "default_value": "C:/Consilience",
+          "browse_folder": true
+        },
+        {
+          "type": "text",
+          "name": "backup_root",
+          "label": "本地備份資料夾",
+          "arg_template": "--backup-root {value}",
+          "default_value": "C:/Consilience/快照備份",
+          "browse_folder": true
+        },
+        {
+          "type": "boolean",
+          "name": "dry_run",
+          "label": "僅模擬（不寫入）",
+          "arg_template": "--dry-run",
+          "default_value": false
+        }
+      ],
+      "arg_template": "{command} {script} {snapshot_root} {project_root} {backup_root} {dry_run}",
+      "fuzzy_keywords": [
+        "系統",
+        "匯入",
+        "快照",
+        ".py"
+      ],
+      "path_policy": {
+        "show_import": false,
+        "show_export": false
+      }
+    }
+  ]
+}
